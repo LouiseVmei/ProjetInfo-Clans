@@ -992,19 +992,27 @@ public class Jeu {
     
     public void valid(int r, int tab[]){
         int [] t = melange(tab);
-        for(int i = 0; i< tab.length; i++){
-            int n = plateau[i].getNbVoisins();
-            int Voisins = plateau[i].getVoisin(i);
-            System.out.println(Voisins);
-            if(Voisins != i){
-                plateau[5*r+i].setCabane(i);
-                
+        boolean possible = true;
+        for(int i = 0; i< 5; i++){
+            int n = plateau[5*r + i].getNbVoisins();
+            for(int k = 0; k<n ; k++){
+                int Voisin = plateau[5*r+i].getVoisin(k);
+                System.out.println(plateau[Voisin].getCabanes(t[i]));
+                if(plateau[Voisin].getCabanes(t[i]) != 0){
+                    possible = false;
+                   
+                }
             }
-            else{
-                valid(r, tab );
-            }
-            
         }
+        if (possible){
+            for(int j = 0; j< t.length; j++){
+                //plateau[5*r+j].setCabane(tab[j]);
+                plateau[5*r+j].setCabane(t[j]);
+            }
+        }
+        else{
+            valid(r, tab );
+            }
     }
     
     public int[] melange(int [] t){
