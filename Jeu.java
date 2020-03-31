@@ -621,20 +621,21 @@ public class Jeu {
      * @return vrai si les terrains sont différents et voisins
      */
     public boolean estVoisinDe(int index1, int index2) {
+    	boolean valid = false;
     	if (index1==index2) {
-    		return false;
+    		return valid;
     	}
         else{
-            for(int i=0;i<=plateau[index1].getNbVoisins();i++) {
+            int n = plateau[index1].getNbVoisins();
+            for(int i=0;i<n;i++) {
                 if(plateau[index1].getVoisin(i)==index2) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
+                    valid = true;
             }
-            return false;
+            
         }
+    }
+        return valid;
+    }
     }
 
     /**
