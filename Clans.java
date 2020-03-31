@@ -16,10 +16,11 @@ public class Clans {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-    	Joueur j1 = new Joueur(String j1);
-    	Joueur j2 = new Joueur(String j2);
-    	Jeu jeu =new Jeu;
-    	run(String j1, String j2, boolean true);
+        
+    	Joueur joueur_1 = new Joueur("joueur 1");
+        Joueur joueur_2 = new Joueur("joueur 2");
+        Jeu jeu = new Jeu();
+        jeu.run(joueur_1, joueur_2, true);
     }
     
 }
