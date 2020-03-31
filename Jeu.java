@@ -649,7 +649,7 @@ public class Jeu {
     		if(sourceValid( _source) && !destValid( _dest)) {
     			return false;
     		}
-                else if (sourceValid(_source)&&destValid(_dest) && plateau[_dest].getNbCabane()>=plateau[_source].getNbCabane()) {
+                else if (sourceValid(_source)&&destValid(_dest)) {
     			return true;
     		}
     		else {
