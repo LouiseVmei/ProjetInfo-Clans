@@ -18,28 +18,28 @@ public class Jeu {
     Terrain[] plateau;
     // Les scores des joueurs
     int[] score;
-    // nombre de villages créés au moment actuel
+    // nombre de villages crÃ©Ã©s au moment actuel
     int villageCourant;
-    // la période actuelle
+    // la pÃ©riode actuelle
     int ageCourant;
-    // Le type de terrain bonus pour les différents âges
+    // Le type de terrain bonus pour les diffÃ©rents Ã¢ges
     final String[] bonus = {"foret", "foret", "foret", "foret", "montagne", "montagne", "montagne", "champ", "champ", "plaine", "plaine", "tout"};
-    // Le type de terrain malus pour les différents âges
+    // Le type de terrain malus pour les diffÃ©rents Ã¢ges
     final String[] malus = {"montagne", "montagne", "montagne", "montagne", "plaine", "plaine", "plaine", "foret", "foret", "champ", "champ", "rien"};
     // La couleur de chacun des joueurs
     String[] mapping = {"bleu", "jaune", "vert", "rouge", "noir"};
     // Le tableau de l'ensemble des joueurs
     Joueur[] joueurs;
-    // Un entier désignant le joueur actuel en train de jouer
+    // Un entier dÃ©signant le joueur actuel en train de jouer
     int joueurActif;
     // Un entier designant le nombre de joueurs
     int nbJoueur;
-    // Dans le cas ou il n'y a pas d'interface, une variable connectée au clavier pour saisir du texte
+    // Dans le cas ou il n'y a pas d'interface, une variable connectÃ©e au clavier pour saisir du texte
     Clavier clavier;
 
-    // Villages où les 5 couleurs sont présentes avec des couleurs représentées qu'une seule fois.
+    // Villages oÃ¹ les 5 couleurs sont prÃ©sentes avec des couleurs reprÃ©sentÃ©es qu'une seule fois.
     int[] villageAvecExplosion = new int[60];                   
-    // Nombre de villages présents dans le tableau villageAvecExplosion
+    // Nombre de villages prÃ©sents dans le tableau villageAvecExplosion
     int nbVillageAvecExplosion;                              
 
     /**
@@ -55,7 +55,7 @@ public class Jeu {
             score[i] = 0;
         }
 
-        // Initialisation des polygones représentant les terrains
+        // Initialisation des polygones reprÃ©sentant les terrains
         plateau = new Terrain[60];
         //Region 0
         plateau[0] = new Terrain(0, 0, "champ", 3, new int[]{1, 2, 3}, 
@@ -548,6 +548,11 @@ public class Jeu {
      * Placement aleatoire des cabanes
      */
     public void placementCabane() {
+        int t [] = new int[]{0,1,2,3,4};
+        int num_regions [] = new int []{4,5,7,8,1,6,3,10,0,2,9,11};
+        for(int k = 0; k< num_regions.length; k++){
+            valid(num_regions[k], t);
+        }
 
     }
 
@@ -668,7 +673,7 @@ public class Jeu {
     }
 
     /**
-     * Test si un village se forme sur une case une fois le coup joué
+     * Test si un village se forme sur une case une fois le coup jouÃ©
      *
      * @param _index
      * @return vrai si il y a creation de village
@@ -697,8 +702,8 @@ public class Jeu {
     /**
      *
      * @param _source
-     * @return le nombre de village créé en fonction de la source une fois le
-     * coup joué
+     * @return le nombre de village crÃ©Ã© en fonction de la source une fois le
+     * coup jouÃ©
      */
     public int getNbVillage(int _source) {
         int res = 0;
@@ -713,13 +718,13 @@ public class Jeu {
     /**
      *
      * @param _source
-     * @return la liste des villages créé en fonction de la source une fois le
-     * coup joué
+     * @return la liste des villages crÃ©Ã© en fonction de la source une fois le
+     * coup jouÃ©
      */
     public int[] getVillage(int _source) {
         int nbNewVillage = 0;
         int[] villages = new int[getNbVillage(_source)];
-        // Test si un villages est crÃ©Ã© sur toutes les cases voisines de la source
+        // Test si un villages est crÃƒÂ©ÃƒÂ© sur toutes les cases voisines de la source
         for (int i = 0; i < plateau[_source].getNbVoisins(); i++) {
             if (newVillage(plateau[_source].getVoisin(i))) {
                 villages[nbNewVillage] = plateau[_source].getVoisin(i);
@@ -814,7 +819,7 @@ public class Jeu {
     }
 
     /**
-     * Affecte les couleurs aléatoirement
+     * Affecte les couleurs alÃ©atoirement
      */
     public void initColors() {
         int f, s, tmp;
@@ -943,5 +948,34 @@ public class Jeu {
             }
         }
         return res;
+    }
+    
+    public void valid(int r, int tab[]){
+        int [] t = melange(tab);
+        for(int i = 0; i< tab.length; i++){
+            int n = plateau[i].getNbVoisins();
+            int Voisins = plateau[i].getVoisin(i);
+            System.out.println(Voisins);
+            if(Voisins != i){
+                plateau[5*r+i].setCabane(i);
+                
+            }
+            else{
+                valid(r, tab );
+            }
+            
+        }
+    }
+    
+    public int[] melange(int [] t){
+        for(int position = t.length-1; position >=1; position --){
+            int hasard = (int) Math.floor(Math.random() * (position + 1));
+            
+            int svg = t[position];
+            t[position] = t[hasard];
+            t[hasard] = svg;
+            
+        }
+        return t;
     }
 }
