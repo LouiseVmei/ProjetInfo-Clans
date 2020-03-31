@@ -643,12 +643,12 @@ public class Jeu {
      * @return vrai si un coup est valide
      */
     public boolean coupValide(int _source, int _dest) {
-    	if(estVoisinDe(int _source, int _dest) && plateau[_source].nbCabanes!=0 && plateau[_dest].nbCabanes!=0) {
-    		if(sourceValid(int _source) && !destValid(int _dest)) {
+    	if(estVoisinDe( _source, _dest) && plateau[_source].getNbCabane!=0 && plateau[_dest].getNbCabane!=0) {
+    		if(sourceValid( _source) && !destValid( _dest)) {
     			return false;
     		}
-                if (sourceValid(int _source)&&destValid(int _dest) && plateau[_dest].nbCabane>=plateau[_source].nbCabane) {
-    			    return true;
+                else if (sourceValid(_source)&&destValid(_dest) && plateau[_dest].getNbCabane>=plateau[_source].getNbCabane) {
+    			return true;
     		}
     		else {
     			return false;
