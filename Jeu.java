@@ -733,6 +733,38 @@ public class Jeu {
         }
         return villages;
     }
+    public void scorer(int villageForme){
+        (joueurs[joueurActif]).newVillage();
+        Terrain terrainCourant =plateau[villageForme];
+        if ((terrainCourant).getType()==malus[ageCourant]){
+            nbVillageAvecExplosion++;
+            villageAvecExplosion[nbVillageAvecExplosion]=villageCourant; //si j'ai bien compris comment est fait villageAvecExplosion
+            terrainCourant.vider();
+        }
+        if (terrainCourant.cinqCouleurs()){
+            for (int i=0;i<5;i++){
+                if (terrainCourant.getCabanes()[i]==1){
+                    terrainCourant.removeCabane(i);
+                }
+            }            
+        }
+        if (!terrainCourant.estVide()){
+            terrainCourant.setVillage();
+            if (terrainCourant.getType()==bonus[ageCourant]){
+                for (int k=0;k<5 && terrainCourant.getCabanes(k)!=0;k++){
+                    score[k]+=terrainCourant.getNbCabane()+1;
+                }
+            }
+            
+            else {
+                for (int k=0;k<5 && terrainCourant.getCabanes(k)!=0;k++){
+                    score[k]+=terrainCourant.getNbCabane();
+                }
+            }
+        }
+        villageCourant ++;       
+    }
+    
 
     /**
      *
