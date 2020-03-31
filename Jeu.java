@@ -614,18 +614,26 @@ public class Jeu {
         return (_terrain >= 0 && _terrain < 60 && !plateau[_terrain].estVide());
     }
     
+       
+    /**Test de validité voisin
+     * 
+     * @param index1, index2 des deux terrains à tester en voisinage
+     * @return vrai si les terrains sont différents et voisins
+     */
     public boolean estVoisinDe(int index1, int index2) {
     	if (index1==index2) {
     		return false;
     	}
-    	for(int i,i<index1.nbVoisin,i++) {
-    		if(index1.voisins[i]==index2) {
-    			return true;
-    		}
-    		else {
-    			return false;
-    		}
-    	}
+        else{
+            for(int i=0;i<=plateau[index1].getNbVoisins();i++) {
+                if(plateau[index1].getVoisin(i)==index2) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        }
     }
 
     /**
@@ -635,12 +643,12 @@ public class Jeu {
      * @return vrai si un coup est valide
      */
     public boolean coupValide(int _source, int _dest) {
-    	if(estVoisinDe(int _source, int _dest)==true && _source.ncCabanes!=0 && _dest.nbCabanes!=0) {
-    		if(_source.bloque==true && _dest.bloque==false) {
+    	if(estVoisinDe(int _source, int _dest) && plateau[_source].nbCabanes!=0 && plateau[_dest].nbCabanes!=0) {
+    		if(sourceValid(int _source) && !destValid(int _dest)) {
     			return false;
     		}
-    		if (_source.bloque==true &&_dest.bloque==true && _dest.nbCabane>=_source.nbCabane) {
-    			return true;
+                if (sourceValid(int _source)&&destValid(int _dest) && plateau[_dest].nbCabane>=plateau[_source].nbCabane) {
+    			    return true;
     		}
     		else {
     			return false;
