@@ -32,7 +32,7 @@ public class IHM extends BasicGame {
    
     
     boolean activePauseEspace;       // Si vrai alors il faut appuyer sur la touche espace pour changer de joueur
-    int     tempsEntre2Coups;        // Temps en miliseconde entre 2 coups. S'applique si activePauseEspace est faux. Utilisé lorsque 2 stratégies s'afrrontent
+    int     tempsEntre2Coups;        // Temps en miliseconde entre 2 coups. S'applique si activePauseEspace est faux. UtilisÃ© lorsque 2 stratÃ©gies s'afrrontent
     
     // Graphique du jeu
     Image cabanes[], epoque, map;
@@ -40,41 +40,41 @@ public class IHM extends BasicGame {
     Animation animExplosion;
     
     Jeu jeu;
-    Terrain terrainSource = null, terrainCible = null;      // Coup joué par le joueur
+    Terrain terrainSource = null, terrainCible = null;      // Coup jouÃ© par le joueur
  
     int largeurCabanePx =16, hauteurCabanePx=32 ;                                               // Hauteur et largeur d'une cabane en pixels.
-    int[] emplacementEpoque = {235, 270, 304, 338, 395, 431, 466, 525, 565, 638, 678, 749};     // ordonnee du point rouge représetant l'epoque courante
+    int[] emplacementEpoque = {235, 270, 304, 338, 395, 431, 466, 525, 565, 638, 678, 749};     // ordonnee du point rouge reprÃ©setant l'epoque courante
     int[] centreTerrain = {43, 37, 201, 32, 103, 93, 38, 171, 169, 163, 302, 51, 436, 36, 562, 38, 674, 64, 487, 124, 775, 25, 941, 38, 861, 86, 804, 138, 946, 152, 72, 253, 37, 330, 156, 374, 28, 414, 64, 489, 267, 222, 446, 210, 351, 274, 271, 338, 415, 330, 572, 208, 744, 199, 653, 272, 541, 306, 736, 328, 942, 245, 833, 370, 945, 349, 941, 435, 873, 502, 285, 448, 418, 428, 330, 519, 239, 568, 434, 553, 562, 421, 721, 418, 631, 472, 540, 527, 701, 529, 29, 586, 164, 588, 102, 650, 39, 726, 190, 725, 293, 702, 510, 657, 661, 674, 419, 735, 584, 734, 764, 609, 927, 579, 864, 663, 772, 717, 961, 718};   
     private UnicodeFont fontScore, fontJoueurVillage, fontNumeroVillage,fontNombreHutte;        // Font utilisees pour afficher du texte
-    private int terrainSourceOrdi = -1, terrainCibleOrdi = -1;                                  // Represente le coup joué par l'ordinateur ( terrain source et cible )
+    private int terrainSourceOrdi = -1, terrainCibleOrdi = -1;                                  // Represente le coup jouÃ© par l'ordinateur ( terrain source et cible )
 
-    /* Variables utilisées pour la détermination de l'ordre de création des villages */
-    private boolean choixOrdreVillage = false;      // Vrai si l'utilisateur doit definir l'ordre de création des villages
-    int[] villages;                                 // Liste des villages créés
-    int[] ordreVillages;                            // Ordre de création des villages défini par le joueur
-    int nbChoixEffectue = 0;                        // Nombre de villages numérotés
-    int chronoExplosion = 0 , chronoCouleurJoueur =0;   // Utilisé pour afficher l'explosion et la couleur du joueur pendant quelques secondes.
+    /* Variables utilisÃ©es pour la dÃ©termination de l'ordre de crÃ©ation des villages */
+    private boolean choixOrdreVillage = false;      // Vrai si l'utilisateur doit definir l'ordre de crÃ©ation des villages
+    int[] villages;                                 // Liste des villages crÃ©Ã©s
+    int[] ordreVillages;                            // Ordre de crÃ©ation des villages dÃ©fini par le joueur
+    int nbChoixEffectue = 0;                        // Nombre de villages numÃ©rotÃ©s
+    int chronoExplosion = 0 , chronoCouleurJoueur =0;   // UtilisÃ© pour afficher l'explosion et la couleur du joueur pendant quelques secondes.
     
     // Liste des couleurs
     Color couleurTerrainSource = new Color(255, 0, 0, .5f);          // Couleur du terrain source du coup
     Color couleurTerrainDest = new Color(0, 145, 120, .5f);          // Couleur du terrain destination du coup
     Color couleurTerrainSelectionne = new Color(128, 255, 255, .4f); // Couleur du terrain selectionne
     Color couleurTerrainVoisin = new Color(255, 0, 255, .3f);        // Couleur des terrains voisins
-    Color couleurOrdreVillage = new Color(0, 100, 150, .3f);         // Couleur des villages lorsqu'il faut définir l'ordre de création
+    Color couleurOrdreVillage = new Color(0, 100, 150, .3f);         // Couleur des villages lorsqu'il faut dÃ©finir l'ordre de crÃ©ation
     Color couleurContourTerrain = new Color(255, 0, 0, .4f);         // Couleur du contour du terrain
     Color couleurContourVillage = new Color(255, 255, 255, .4f);     // Couleur du contour d'un village
     Color couleurVillage = new Color(0, 255, 0, .5f);                // Couleur d'un village
     Color couleurTerrainBloque = new Color(255, 0, 0, .5f);          // Couleur d'un terrain bloque
     
                                   //bleu                  jaune                    vert                   rouge                  noir
-    Color[] couleurJetons = {new Color(0, 115, 255) , new Color(255, 255, 0) , new Color(0, 230, 0) , new Color(255, 0, 0), new Color(0, 0, 0) };   // Couleur du disque qui représente un jeton.
-    Color[] couleurNbJetons = {new Color(255,255 , 255) , new Color(0,0 , 0), new Color(255,255 , 255) , new Color(255,255 , 255), new Color(255,255 , 255) };  // Couleur du chiffre à l'intérieur du disque
+    Color[] couleurJetons = {new Color(0, 115, 255) , new Color(255, 255, 0) , new Color(0, 230, 0) , new Color(255, 0, 0), new Color(0, 0, 0) };   // Couleur du disque qui reprÃ©sente un jeton.
+    Color[] couleurNbJetons = {new Color(255,255 , 255) , new Color(0,0 , 0), new Color(255,255 , 255) , new Color(255,255 , 255), new Color(255,255 , 255) };  // Couleur du chiffre Ã  l'intÃ©rieur du disque
     
     // Nombre de huttes que l'on peut placer sur chaque terrain
     int nbHutteMax[] = new int[60]; 
     
     boolean pause = false;                          // Le jeu est en pause en appuyant sur la touche <espace>
-    boolean afficheCouleurJoueurActif = false;      // Si vrai alors la couleur du joueur actif s'affiche à gauche de son nom pendant quelques secondes.
+    boolean afficheCouleurJoueurActif = false;      // Si vrai alors la couleur du joueur actif s'affiche Ã  gauche de son nom pendant quelques secondes.
       
 
 
@@ -98,7 +98,7 @@ public class IHM extends BasicGame {
     }
 
     /*
-     * Initialise le plateau de jeu ainsi que les variables afin de démarrer une nouvelle partie.
+     * Initialise le plateau de jeu ainsi que les variables afin de dÃ©marrer une nouvelle partie.
      */
     public void startNewGame( ) {
         jeu.initPlateau();
@@ -118,9 +118,9 @@ public class IHM extends BasicGame {
     @Override
     /**
      * Initialisation du Jeu
-     * Création des fonts
+     * CrÃ©ation des fonts
      * Chargement des images.
-     * Détermine le nombre de cabanes qu'il est possible de placer sur chaque terrain.
+     * DÃ©termine le nombre de cabanes qu'il est possible de placer sur chaque terrain.
      */
     public void init(GameContainer _container) throws SlickException {
 
@@ -171,7 +171,7 @@ public class IHM extends BasicGame {
         cabanes[4] = new Image("ressources/hutte_noire.png");
         epoque = new Image("ressources/epoque.png");
              
-       // Pour chaque terrain , détermine le nombre de cabanes qu'il est possible de placer.
+       // Pour chaque terrain , dÃ©termine le nombre de cabanes qu'il est possible de placer.
         for (int i = 0 ; i < jeu.plateau.length ; i++ ) {
             nbHutteMax[i]  = placeCabanesMax( i);
         }        
@@ -182,22 +182,30 @@ public class IHM extends BasicGame {
      * 
      * @param _numTerrain  Numero du terrain pour lequel on souhaite connaitre le nombre de cabane MAX.
      * 
-     * Cette Methode détermine pour le terrain _numTerrain combien de cabanes il est possible de placer.
+     * Cette Methode dÃ©termine pour le terrain _numTerrain combien de cabanes il est possible de placer.
      */
     public int placeCabanesMax(int _numTerrain ) {
-        return 9;  
+        int max=0;
+        Polygon p= jeu.plateau[_numTerrain].polygone;
+        for (int x=0;x<3;x++){
+            for (int y=0;y<3;y++){
+                if (p.contains(x*largeurCabanePx,y*hauteurCabanePx)&&p.contains((x+1)*largeurCabanePx,y*hauteurCabanePx)&&p.contains(x*largeurCabanePx,(y+1)*hauteurCabanePx)&& p.contains((x+1)*largeurCabanePx,(y+1)*hauteurCabanePx)){
+                max++;                
+            }
+        return max;
+            }
     }
 
     
     /**
-     * Affiche une cabane ou le nombre de cabanes du joueur aux coordonnées x,y  
+     * Affiche une cabane ou le nombre de cabanes du joueur aux coordonnÃ©es x,y  
      * On affiche le nombre de cabanes s'il y en a de trop.
      * 
      * @param _numJoueur  Joueur pour lequel on affiche les cabanes
-     * @param _terrain    N° du terrain sur lequel on affiche les cabanes
-     * @param _x          _x,_y emplacment de la cabane à l'écran    
+     * @param _terrain    NÂ° du terrain sur lequel on affiche les cabanes
+     * @param _x          _x,_y emplacment de la cabane Ã  l'Ã©cran    
      * @param _y
-     * @param _g          objet graphique pour dessiner ou afficher des images à l'écran.
+     * @param _g          objet graphique pour dessiner ou afficher des images Ã  l'Ã©cran.
      */
     public void afficheHutteJoueur( int _numJoueur , Terrain _terrain , int _x , int _y , Graphics _g) {
         // Si trop de huttes sur le terrain on affiche le nombre de hutte
@@ -217,7 +225,7 @@ public class IHM extends BasicGame {
     
 
     /**
-     * Retourne le nombre de cabanes placées sur le plateau pour le joueur _numJoueur et pour le terrain _terrain 
+     * Retourne le nombre de cabanes placÃ©es sur le plateau pour le joueur _numJoueur et pour le terrain _terrain 
      * 
      * @param _numJoueur 
      * @param _terrain 
@@ -282,8 +290,8 @@ public class IHM extends BasicGame {
 
     
     /**
-     * C'est cette méthode qui affiche le jeu à l'écran.
-     * Elle est appelée régulièrement par JAVA pour actualiser l'écran. ( plusieurs fois par seconde )
+     * C'est cette mÃ©thode qui affiche le jeu Ã  l'Ã©cran.
+     * Elle est appelÃ©e rÃ©guliÃ¨rement par JAVA pour actualiser l'Ã©cran. ( plusieurs fois par seconde )
      */
     @Override
     public void render(GameContainer _container, Graphics _g) throws SlickException {
@@ -291,8 +299,8 @@ public class IHM extends BasicGame {
         this.map.draw(0, 0);
 
 
-         /* Mise en évidence des terrains voisins du terrain source */
-        if (terrainSource != null) {                    // Le joueur  a selectionné un terrain source 
+         /* Mise en Ã©vidence des terrains voisins du terrain source */
+        if (terrainSource != null) {                    // Le joueur  a selectionnÃ© un terrain source 
 
             if ( jeu.getNbVoisinDispo(terrainSource.getId()) > 0 ) {   // Si on peut deplacer les huttes 
                 _g.setColor(couleurTerrainSelectionne);
@@ -309,7 +317,7 @@ public class IHM extends BasicGame {
                         _g.setLineWidth(1.0f);
                 }
             } else {
-                terrainSource = null;       // On ne peut pas jouer à partir de ce terrain , on desactive donc la selection
+                terrainSource = null;       // On ne peut pas jouer Ã  partir de ce terrain , on desactive donc la selection
             }
         }
 
@@ -338,7 +346,7 @@ public class IHM extends BasicGame {
             }
 
 
-            /* Affiche les villages à choisir si necessaire */
+            /* Affiche les villages Ã  choisir si necessaire */
             if (choixOrdreVillage) {
                 for (int i = 0; i < villages.length; i++) {
                     if (villages[i] == numTerrain) {
@@ -363,7 +371,7 @@ public class IHM extends BasicGame {
 
         }
 
-        // Affiche le coup joué par l'ordinateur 
+        // Affiche le coup jouÃ© par l'ordinateur 
         if (terrainSourceOrdi != -1) {
             _g.setColor(Color.black);
             _g.setLineWidth(6.0f);
@@ -373,7 +381,7 @@ public class IHM extends BasicGame {
         }        
         
           /*
-           * Enlever le commentaire de la ligne du dessous pour tester la méthode placeCabaneMax()
+           * Enlever le commentaire de la ligne du dessous pour tester la mÃ©thode placeCabaneMax()
            */
          
          //  for (int i = 0 ; i < jeu.plateau.length ; i++ ) placeCabanesMax( i);  
@@ -382,7 +390,7 @@ public class IHM extends BasicGame {
            afficheResultatPartie(_g);
     }
 
-    /* Affiche le numero du village choisi par le joueur pour le terrain passé en parametre */
+    /* Affiche le numero du village choisi par le joueur pour le terrain passÃ© en parametre */
     /* Ordre de creation des villages */
     public void afficheNumeroVillage(int _numTerrain, Graphics _g) {
         for (int i = 0; i < nbChoixEffectue; i++) {
@@ -394,7 +402,7 @@ public class IHM extends BasicGame {
     }
 
     /*
-     * Affiche le score en haut à droite
+     * Affiche le score en haut Ã  droite
      */
     public void afficheScore(Graphics _g) {
         _g.setColor(new Color(216, 238, 116));
@@ -424,7 +432,7 @@ public class IHM extends BasicGame {
     }
 
     /*
-     * Affiche les epoques en bas à droite
+     * Affiche les epoques en bas Ã  droite
      */
     public void afficheEpoque(Graphics _g) {
         _g.drawImage(epoque, 990, 196);
@@ -448,7 +456,7 @@ public class IHM extends BasicGame {
         for ( int j= 0 ; j < jeu.nbJoueur ; j++ ) {
             _g.setFont(this.fontScore);
             _g.setColor(new Color(0, 0, 0));
-            _g.drawString("Résultat", 450 , 300 );
+            _g.drawString("RÃ©sultat", 450 , 300 );
             scoreJoueur  = jeu.joueurs[j].getNbVillage() + jeu.score[ jeu.joueurs[j].getCouleur() ] ;
             cabanes[ jeu.joueurs[j].getCouleur() ].draw(350,  350 + j*50);
             _g.drawString(jeu.joueurs[j].getName() + " : " + scoreJoueur , 380 , 350 + j*50);
@@ -460,9 +468,9 @@ public class IHM extends BasicGame {
  
 
     /**
-     * Détermine le coup du joueur ( terrain source et terrain cible ) et joue le coup
-     * @param _terrainSelectionne  terrain sélectioné par le joueur
-     * @param _x  _x , _y sont les coordonnées où l'utilisateur a cliqué.
+     * DÃ©termine le coup du joueur ( terrain source et terrain cible ) et joue le coup
+     * @param _terrainSelectionne  terrain sÃ©lectionÃ© par le joueur
+     * @param _x  _x , _y sont les coordonnÃ©es oÃ¹ l'utilisateur a cliquÃ©.
      * @param _y
      * @return 
      */
@@ -494,7 +502,7 @@ public class IHM extends BasicGame {
 
 
     /*
-     * Détermine l'ordre de création des villages
+     * DÃ©termine l'ordre de crÃ©ation des villages
      * Retourne vrai si tous les villages ont ete selectionnes
      */
     public boolean definirOrdreVillage(int _numTerrainSelectionne, int _x, int _y) {
@@ -539,7 +547,7 @@ public class IHM extends BasicGame {
     }
 
     /*
-     * La méthode appelée par JAVA lorsque le joueur clique sur le plateau de jeu.
+     * La mÃ©thode appelÃ©e par JAVA lorsque le joueur clique sur le plateau de jeu.
      * 
      */
     public void mouseClicked(int _button, int _x, int _y, int _nbClique) {
@@ -553,7 +561,7 @@ public class IHM extends BasicGame {
         for (int i = 0; i < jeu.plateau.length; i++) {
              if (jeu.plateau[i].polygone.contains(_x, _y)) {
                 if ( jeu.plateau[i].getNbCabane() == 0  ) {
-                    return; // On ne pas sélectionner un terrain vide.
+                    return; // On ne pas sÃ©lectionner un terrain vide.
                 }
                 if (choixOrdreVillage) {
                     if (definirOrdreVillage(i, _x, _y)) {   // Tous les villages ont ete selectionnes
@@ -574,7 +582,7 @@ public class IHM extends BasicGame {
 
     @Override
     /**
-     * La méthode est appelée régulièrement par JAVA pour actualiser les variables du jeu.
+     * La mÃ©thode est appelÃ©e rÃ©guliÃ¨rement par JAVA pour actualiser les variables du jeu.
      */
     public void update(GameContainer _container, int _delta) throws SlickException {
         
@@ -596,7 +604,7 @@ public class IHM extends BasicGame {
     }
 
     /*
-     * La Méthode est appelée par JAVA lorsque le joueur appuie sur une touche du clavier.
+     * La MÃ©thode est appelÃ©e par JAVA lorsque le joueur appuie sur une touche du clavier.
      */
     public void keyReleased(int _key, char _c) {
 
