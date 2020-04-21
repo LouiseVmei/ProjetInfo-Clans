@@ -1,6 +1,6 @@
 Briques fonctionnelles
 
-brique fonctionnelle: getName()
+brique fonctionnelle: getName() & getNom()
 responsable : Johanne Calcoen
 séance : 2
 commit: ec75073f403b9b05101a6704d5fa205bfad60c96 
