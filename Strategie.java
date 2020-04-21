@@ -97,6 +97,16 @@ public interface Strategie {
         return "1";
     }
     
+    public boolean scoreMax(int _myColor, int[] colorScore){
+        for (int i=0; i<colorScore.length; i++){
+            if (colorScore[_myColor]<colorScore[i]){
+                return false;
+            }
+          
+        }
+        return false;
+    }
+    
     public int[] BonusPossible(int[] sourcesPossibles, int nbChoix, Terrain [] _plateau, int myColor){
         int nb_villages = Tools.countVillage(_plateau); //nombre de villages sur le plateau
         int ere_actuelle = Tools.age(nb_villages);  //age actuel
