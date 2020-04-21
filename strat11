@@ -1,0 +1,34 @@
+public java.util.ArrayList<Integer> sourcesVillages(Terrain[] plateau){
+        ArrayList<Integer> tabSourcesDeVillages= new ArrayList<Integer>();
+        for (int i=0; i<Tools.getSource(plateau).length ; i++){
+                if (Tools.nbVillageCreeSi(plateau,i)>0){
+                    tabSourcesDeVillages.add(i);
+                }
+        }
+        return tabSourcesDeVillages;
+        
+    }
+    public int[] meilleurVillage(Terrain[] plateau, int myColor){
+        int meilleur;
+        int src;
+        int dest;
+        src= sourcesVillages(plateau).get(0);
+        dest = Tools.listeVillagesCreesSi(plateau, src)[0];
+        meilleur= Tools.scoreVillage(plateau, src, dest, dest, 1)[myColor];
+        
+        for (int i=0; i<sourcesVillages(plateau).size();i++){
+            for (int j=0;j<Tools.listeVillagesCreesSi(plateau, i).length;j++){
+                if (meilleur<Tools.scoreVillage(plateau, sourcesVillages(plateau).get(i), Tools.listeVillagesCreesSi(plateau, i)[j], Tools.listeVillagesCreesSi(plateau, i)[j], 1)[myColor]){
+                    src=sourcesVillages(plateau).get(i);
+                    dest=Tools.listeVillagesCreesSi(plateau, i)[j];
+                    meilleur=Tools.scoreVillage(plateau, src, dest, dest, 1)[myColor];
+                }
+                
+            }
+            
+        }
+        int[] res= new int[2];
+        res[0]= src;
+        res[1]= dest;
+        return res;
+    }
