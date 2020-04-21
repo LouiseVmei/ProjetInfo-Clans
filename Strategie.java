@@ -34,25 +34,34 @@ public interface Strategie {
         int m =  BonusPossible(sourcesPossibles,nbChoix,_plateau,_myColor)[2];
         
         if(scoreMax){
-            if(bonusPossible == 0){
-            src= Tools.getSource(_plateau)[rand.nextInt(nbChoix)];               //on en tire une aléatoirement      
-            nbVoisin= Tools.getNbVoisinDispo(_plateau, src);                       //on récupère le nb de voisins de la source
-            dest= Tools.getVoisinsDispo(_plateau, src)[rand.nextInt(nbVoisin)];    //on en tire un aléatoirement
-            }
-            else{
-                src = n;
-                dest= m;   
+            for(int k =  0; k<nbChoix; k++){
+                bonusPossible = BonusPossible(sourcesPossibles[k],_plateau,_myColor);
+                if(!bonusPossible ){
+                    src= Tools.getSource(_plateau)[rand.nextInt(nbChoix)];               //on en tire une aléatoirement      
+                    nbVoisin= Tools.getNbVoisinDispo(_plateau, src);                       //on récupère le nb de voisins de la source
+                    dest= Tools.getVoisinsDispo(_plateau, src)[rand.nextInt(nbVoisin)];    //on en tire un aléatoirement
+                    }
+                else{
+                    
+                    src = sourcesPossibles[k];
+                    dest= Destination;   
+                }
             }
         }
+        
         else{
-            if(bonusPossible == 0){
-            src= Tools.getSource(_plateau)[rand.nextInt(nbChoix)];               //on en tire une aléatoirement      
-            nbVoisin= Tools.getNbVoisinDispo(_plateau, src);                       //on récupère le nb de voisins de la source
-            dest= Tools.getVoisinsDispo(_plateau, src)[rand.nextInt(nbVoisin)];    //on en tire un aléatoirement
-        }
-            else{
-                src = n;
-                dest= m;   
+            for(int k =  0; k<nbChoix; k++){
+                bonusPossible = BonusPossible(sourcesPossibles[k],_plateau,_myColor);
+                if(!bonusPossible ){
+                    src= Tools.getSource(_plateau)[rand.nextInt(nbChoix)];               //on en tire une aléatoirement      
+                    nbVoisin= Tools.getNbVoisinDispo(_plateau, src);                       //on récupère le nb de voisins de la source
+                    dest= Tools.getVoisinsDispo(_plateau, src)[rand.nextInt(nbVoisin)];    //on en tire un aléatoirement
+                    }
+                else{
+                    
+                    src = sourcesPossibles[k];
+                    dest= Destination;   
+                }
             }
         }
         
@@ -115,44 +124,42 @@ public interface Strategie {
         return false;
     }
     
-    public int[] BonusPossible(int[] sourcesPossibles, int nbChoix, Terrain [] _plateau, int myColor){
+    public boolean BonusPossible(int sourcesPossibles, Terrain [] _plateau, int myColor){
         int nb_villages = Tools.countVillage(_plateau); //nombre de villages sur le plateau
         int ere_actuelle = Tools.age(nb_villages);  //age actuel
-        int [] q = {0,0, 0};    // pour retour vide au cas où
                             
-        for(int i = 0; i< nbChoix; i++){    //On parcours autant de case que possible
             for(int j = 0; j<= 4;j++ ){     //numéro des couleurs
-                if(_plateau[sourcesPossibles[i]].getCabanes(j) == myColor){     //Cases qui contiennent mas couleur
-                    int nb_voisins = _plateau[sourcesPossibles[i]].getNbVoisins();  //Nombre de voisins de cette case
-                    String nature_case = _plateau[sourcesPossibles[i]].getType(); // "foret", "montagne",...
+                if(_plateau[sourcesPossibles].getCabanes(j) == myColor){     //Cases qui contiennent mas couleur
+                    int nb_voisins = _plateau[sourcesPossibles].getNbVoisins();  //Nombre de voisins de cette case
+                    String nature_case = _plateau[sourcesPossibles].getType(); // "foret", "montagne",...
                     for(int k = 0; k< nb_voisins; k++){
-                        int voisin = _plateau[sourcesPossibles[i]].getVoisin(k);    //On test chaque voisin un par un
-                        boolean voisinEstDispo = test(Tools.getVoisinsDispo(_plateau, sourcesPossibles[i]), voisin);    //On s'assure que le voisin n'est pas une case vide
+                        int voisin = _plateau[sourcesPossibles].getVoisin(k);    //On test chaque voisin un par un
+                        boolean voisinEstDispo = test(Tools.getVoisinsDispo(_plateau, sourcesPossibles), voisin);    //On s'assure que le voisin n'est pas une case vide
                         if(voisinEstDispo){
                             String s = _plateau[voisin].getType();
                             if(s.equals("foret") && ere_actuelle <= 4 ){
-                                int []t = {1,sourcesPossibles[i], voisin};
-                                return t  ;
+                                Destination = voisin;
+                                return true  ;
                             }
                             else if(s.equals("montagne") && ere_actuelle <= 7 && ere_actuelle >=5 ){
-                                int [] t = {1,sourcesPossibles[i], voisin};
-                                return t  ;
+                                Destination = voisin;
+                                return true  ;
                             }
                             else if(s.equals("champ") && ere_actuelle <= 9 && ere_actuelle >=8){
-                                int [] t = {1,sourcesPossibles[i], voisin};
-                                return t  ;
+                                Destination = voisin;
+                                return true  ;
                             }
                             else if(s.equals("plaine") && ere_actuelle <= 11 && ere_actuelle >=10){
-                                int [] t = {1,sourcesPossibles[i], voisin};
-                                return t  ;
+                                Destination = voisin;
+                                return true  ;
                             }
                         }
                     }
                 }
             }
             
-        }
-        return q;
+        
+        return false;
     }
     
     public boolean test(int[] T,int valeurATrouver){
