@@ -25,28 +25,36 @@ public interface Strategie {
         int dest= Tools.getVoisinsDispo(_plateau, src)[rand.nextInt(nbVoisin)];    //on en tire un aléatoirement
         
         int[] sourcesPossibles = Tools.getSource(_plateau);
-        int score_max = 0;
-        for(int k =0; k< _colorScore.length; k++){
-            if(_colorScore[k] >= score_max){
-                score_max = _colorScore[k];
-            }
-        }
+        
+        boolean scoreMax = scoreMax(_myColor, _colorScore);
         
         
         int bonusPossible = BonusPossible(sourcesPossibles,nbChoix,_plateau,_myColor)[0];
         int n =  BonusPossible(sourcesPossibles,nbChoix,_plateau,_myColor)[1];
         int m =  BonusPossible(sourcesPossibles,nbChoix,_plateau,_myColor)[2];
         
-        if(bonusPossible == 0){
+        if(scoreMax){
+            if(bonusPossible == 0){
+            src= Tools.getSource(_plateau)[rand.nextInt(nbChoix)];               //on en tire une aléatoirement      
+            nbVoisin= Tools.getNbVoisinDispo(_plateau, src);                       //on récupère le nb de voisins de la source
+            dest= Tools.getVoisinsDispo(_plateau, src)[rand.nextInt(nbVoisin)];    //on en tire un aléatoirement
+            }
+            else{
+                src = n;
+                dest= m;   
+            }
+        }
+        else{
+            if(bonusPossible == 0){
             src= Tools.getSource(_plateau)[rand.nextInt(nbChoix)];               //on en tire une aléatoirement      
             nbVoisin= Tools.getNbVoisinDispo(_plateau, src);                       //on récupère le nb de voisins de la source
             dest= Tools.getVoisinsDispo(_plateau, src)[rand.nextInt(nbVoisin)];    //on en tire un aléatoirement
         }
-        else{
-            src = n;
-            dest= m;   
+            else{
+                src = n;
+                dest= m;   
+            }
         }
-        
         
         
         
