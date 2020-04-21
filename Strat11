@@ -199,4 +199,20 @@ public class Strat11 implements Strategie{
         }
         return false;
     }
+    
+    public boolean AlmostVoisin(int i){
+        boolean PresqueVoisin = false;
+        for (int k=0; k<(Tools.getVoisinsDispo(plateau,i).length); k++){
+            if BonusPossible(Tools.getVoisinsDispo(plateau,i)[k],_plateau,myColor):
+                PresqueVoisin = True;
+        return (PresqueVoisin);
+    }
+    
+    public boolean AlmostAlone(int i){
+        boolean VoisinPresqueSeul=false;
+        for (int k=0; k<(Tools.getVoisinsDispo(plateau,i).length); k++){
+           if (getNbVoisinDispo(plateau,Tools.getVoisinsDispo(plateau,i)[k])==1):
+                VoisinPresqueSeul=true;
+        return (VoisinPresqueSeul);
+    }
 }
