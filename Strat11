@@ -200,21 +200,23 @@ public class Strat11 implements Strategie{
         return false;
     }
     
-    public boolean AlmostVoisin(int i){
-        boolean PresqueVoisin = false;
-        for (int k=0; k<(Tools.getVoisinsDispo(plateau,i).length); k++){
-            if BonusPossible(Tools.getVoisinsDispo(plateau,i)[k],_plateau,myColor){
-                PresqueVoisin = True;
-            }
-        return (PresqueVoisin);
+       public boolean AlmostVoisin(int i, Terrain[] _plateau, int _myColor){
+    boolean PresqueVoisin = false;
+    for (int k=0; k<(Tools.getVoisinsDispo(_plateau,i).length); k++){
+        if (BonusPossible(Tools.getVoisinsDispo(_plateau,i)[k],_plateau,_myColor)){
+            PresqueVoisin = true;
+        }
+    }
+    return (PresqueVoisin);
     }
     
-    public boolean AlmostAlone(int i){
+    public boolean AlmostAlone(int i, Terrain[] _plateau){
         boolean VoisinPresqueSeul=false;
-        for (int k=0; k<(Tools.getVoisinsDispo(plateau,i).length); k++){
-           if (getNbVoisinDispo(plateau,Tools.getVoisinsDispo(plateau,i)[k])==1){
+        for (int k=0; k<(Tools.getVoisinsDispo(_plateau,i).length); k++){
+           if (Tools.getNbVoisinDispo(_plateau,Tools.getVoisinsDispo(_plateau,i)[k])==1){
                 VoisinPresqueSeul=true;
             }
+        }
         return (VoisinPresqueSeul);
     }
 }
