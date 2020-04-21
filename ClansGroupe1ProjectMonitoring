@@ -1,4 +1,4 @@
-Briques fonctionnelles
+Briques fonctionnelles (rédaction du compte-rendu par Louise Villette)
 
 brique fonctionnelle: getName() & getNom()
 responsable : Johanne Calcoen
@@ -6,7 +6,7 @@ séance : 2
 commit: ec75073f403b9b05101a6704d5fa205bfad60c96 
 
 brique fonctionnelle: surBonus()
-Responsable: Maxime Morin
+Responsable: Maxime Morin 
 Séance :3
 Commit:f61506dcbcb6c8138beb839462619aeb2b7e080b
 
@@ -18,12 +18,12 @@ commit:f61506dcbcb6c8138beb839462619aeb2b7e080b
 brique fonctionnelle: surMalus()
 Responsable : Maxime Morin
 séance: 3
-commit:
+commit:a39a39eba36edfec9aac0c2add1892c26759c92e
 
 brique fonctionnelle: malusVoisin()
 Responsable : Maxime Morin
 séance : 3
-commit:
+commit:a39a39eba36edfec9aac0c2add1892c26759c92e
 
 
 brique fonctionnelle: scoreMax()
@@ -31,4 +31,7 @@ responsable : Johanne Calcoen
 séance : 3
 commit:e83db387fb160a5eb48a16be18db0387c81ac3ec
 
-brique fonctionnelle:
+brique fonctionnelle: strat11 (fichier.java)
+responsable: Maxime Morin & Hugo Paris
+séance : 3
+commit : a39a39eba36edfec9aac0c2add1892c26759c92e
