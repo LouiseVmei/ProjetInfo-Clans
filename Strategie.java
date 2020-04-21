@@ -60,7 +60,20 @@ public interface Strategie {
      * @param _villages
      * @return un tableau correspondant à l'ordre dans laquelle les villages seront créés (si nécessaire)
      */
-    public int[] ordre( int[] _villages );
+    @Override
+    public int[] ordre( int[] _villages ){
+        Random rand = new Random();
+        int a,tmp;
+        // on melange le tableau des villages
+        for (int i=0; i<_villages.length; i++){
+            a=rand.nextInt(_villages.length);
+            tmp=_villages[a];
+            _villages[a]=_villages[i];
+            _villages[i]=tmp;
+        }
+        //on retourne le tableau mélangé
+        return _villages;
+    }
     
     /**
      * IMPORTANT!!!
@@ -69,6 +82,7 @@ public interface Strategie {
      * NOM1 et NOM2 sont uniquement les noms de famille de votre binome
      * (si nom de famille identique à un autre élève, vous pouvez ajouter l'initiale de votre prénom, ex: A.FLEURY MICHON
      */
+    
     public String getName(){
         return "MORIN PARIS VILLETTE CALCOEN";
     }
