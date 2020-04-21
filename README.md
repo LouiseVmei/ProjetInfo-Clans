@@ -15,3 +15,5 @@ Descriptif:
 Journal de Bord :
 séance 0 (lundi 30 mars) : choix du projet et constitution du groupe + attribution des exos 1 à 4
 séance 1 (mardi 31 mars) : correction et test des exos 1 à 4 + explication de la partie 2 : stratégie d'IA.
+séance 2 (lundi 20 avril) : création d'une stratégie et découpage en petites tâches
+séance 3 (mardi 21 avril) : encodage de la stratégie en Java
