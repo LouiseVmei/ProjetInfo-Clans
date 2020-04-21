@@ -1,33 +1,34 @@
 Briques fonctionnelles
 
-brique fonctionnelle 1: surVoisin()
+brique fonctionnelle: getName()
+responsable : Johanne Calcoen
+séance : 2
+commit: ec75073f403b9b05101a6704d5fa205bfad60c96 
+
+brique fonctionnelle: surBonus()
 Responsable: Maxime Morin
 Séance :3
-Commit:
+Commit:f61506dcbcb6c8138beb839462619aeb2b7e080b
 
-brique fonctionnelle 2: bonusVoisin()
+brique fonctionnelle: bonusVoisin()
 responsable : Maxime Morin
 séance : 3
-commit:
+commit:f61506dcbcb6c8138beb839462619aeb2b7e080b
 
-brique fonctionnelle 3: surMalus()
+brique fonctionnelle: surMalus()
 Responsable : Maxime Morin
 séance: 3
 commit:
 
-brique fonctionnelle 4: malusVoisin()
+brique fonctionnelle: malusVoisin()
 Responsable : Maxime Morin
 séance : 3
 commit:
 
-brique fonctionnelle 5: nbMyCabane()
-responsable : Hugo Paris
-séance : 3
-commit:  
 
-brique fonctionnelle 6: scoreMax()
+brique fonctionnelle: scoreMax()
 responsable : Johanne Calcoen
 séance : 3
-commit:
+commit:e83db387fb160a5eb48a16be18db0387c81ac3ec
 
-brique fonctionnelle 7 : 
+brique fonctionnelle:
