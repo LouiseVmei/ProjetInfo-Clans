@@ -31,7 +31,14 @@ responsable : Johanne Calcoen
 séance : 3
 commit:e83db387fb160a5eb48a16be18db0387c81ac3ec
 
+brique fonctionnelle: almostVoisin() & almostAlone()
+responsable: Hugo Paris
+séance : 3
+commit:
+(révision et test par Louise Villette)
+
 brique fonctionnelle: strat11 (fichier.java)
 responsable: Maxime Morin & Hugo Paris
 séance : 3
 commit : a39a39eba36edfec9aac0c2add1892c26759c92e
+(révision et test par Maxime Morin & Louise Villette)
