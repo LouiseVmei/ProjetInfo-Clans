@@ -2,19 +2,33 @@ Briques fonctionnelles & répartition des tâches (rédaction du compte-rendu pa
 
 brique fonctionnelle: exo 1 partie 1
 responsable:Maxime Morin & Louise Villette
-commit:
+commit: 1a423307c3f098ff01daf94173d7a488071da0f3 
 
 brique fonctionnelle: exo 2 partie 1
 responsable: Maxime Morin & Hugo Paris (peer to peer)
 commit:
+13af84fff85d98e0dba3d087e8b97faf6c62f915   ALGO 2 (part1)
+d24ab8f740e4064a2500ff73b27b20e27fedd3b3   ALGO 2 (part2)
 
 brique fonctionnelle:exo 3 partie 1
 responsable: Louise Villette
 commit:
 
+9f09ad89a4d7f2f444daed91ff5ef7f63dad8cc8 ALGO 3 (part1)
+4f1ffc29c88a313b2925eafae745427ec3bf9984 ALGO 3 (part2)
+49d042f6055b33bc70dd7d253394b918e308ccd9 ALGO 3 (part3)
+115f145c1efe71604361e1cb4e3d928f1bf7986f  ALGO 3 (part4)
+fb2e6d85054186063095dff5bc4315c0feee8bca ALGO 3 (part5)
+7cc827143f5ed82f27e8390b85c876de01f670f5 ALGO 3 (part6)
+
+
 brique fonctionnelle: exo 4 partie 1
 responsable: Johanne Calcoen
 commit:
+5eb2b35bfaec5dd1c2db67e5a9f6667522936bd7  ALGO 4 (IHM)
+86c6a30dbdef6b63649b46345d4f4926d044c7b5   ALGO 4 (jeu)
+
+
 
 
 brique fonctionnelle: getName() & getNom()
@@ -27,6 +41,14 @@ réalisation du schéma général descriptif de la stratégie avec découpage en
 Responsable : Louise Villette
 pas besoin de commit, ce n'est pas une brique fonctionnelle
 (révision par Hugo Paris, Johanne Calcoen, Maxime Morin et le prof Jérémie)
+
+brique fonctionnelle: mouvement & bonus
+responsable: Maxime Morin
+commit: 24c4dfe870f4013ec7027f81fcb2a283c1ce728f
+
+brique fonctionnelle: ordre
+responsable: Maxime Morin
+commit: 539b2c5b3d84c7ff2faa39bc0b87331463acf048
 
 brique fonctionnelle: surBonus()
 Responsable: Maxime Morin 
@@ -61,7 +83,10 @@ commit:e83db387fb160a5eb48a16be18db0387c81ac3ec
 brique fonctionnelle: almostVoisin() & almostAlone()
 responsable: Hugo Paris (peer to peer Louise Villette)
 séance : 3
-commit: 158176797ef2695ec3ff22bd96648b91fbd060cd
+commit: 
+94c73f79cd1fce81dbf25fda31f78eb21319455a
+15dc2eb10e71a27cfce3a1072167f7b7bbed09b1
+158176797ef2695ec3ff22bd96648b91fbd060cd
 (révision et test par Louise Villette)
 
 intégration de toutes les briques fonctionnelles et articulation: strat11 (fichier.java)
@@ -72,3 +97,9 @@ commit : a39a39eba36edfec9aac0c2add1892c26759c92e
 
 brique fonctionnelle: meilleurVillage()
 responsable : Johanne Calcoen
+
+Organisation du travail pour les séances à venir:
+-test
+-debug
+-jouer contre strat11 et la faire jouer contre les autres strat
+-amélioration de la strat par la modification de certaines méthodes, voir l'ajout d'autres
