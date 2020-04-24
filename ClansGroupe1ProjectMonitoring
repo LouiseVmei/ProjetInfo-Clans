@@ -1,10 +1,32 @@
-Briques fonctionnelles (rédaction du compte-rendu par Louise Villette)
+Briques fonctionnelles & répartition des tâches (rédaction du compte-rendu par Louise Villette)
+
+brique fonctionnelle: exo 1 partie 1
+responsable:Maxime Morin & Louise Villette
+commit:
+
+brique fonctionnelle: exo 2 partie 1
+responsable: Maxime Morin & Hugo Paris (peer to peer)
+commit:
+
+brique fonctionnelle:exo 3 partie 1
+responsable: Louise Villette
+commit:
+
+brique fonctionnelle: exo 4 partie 1
+responsable: Johanne Calcoen
+commit:
+
 
 brique fonctionnelle: getName() & getNom()
 responsable : Johanne Calcoen
 séance : 2
 commit: ec75073f403b9b05101a6704d5fa205bfad60c96 
 (révision et test par Johanne Calcoen)
+
+réalisation du schéma général descriptif de la stratégie avec découpage en plusieurs méthodes et tests simples
+Responsable : Louise Villette
+pas besoin de commit, ce n'est pas une brique fonctionnelle
+(révision par Hugo Paris, Johanne Calcoen, Maxime Morin et le prof Jérémie)
 
 brique fonctionnelle: surBonus()
 Responsable: Maxime Morin 
@@ -43,7 +65,7 @@ commit: 158176797ef2695ec3ff22bd96648b91fbd060cd
 (révision et test par Louise Villette)
 
 intégration de toutes les briques fonctionnelles et articulation: strat11 (fichier.java)
-responsable: Maxime Morin & Louise Villette
+responsable: Maxime Morin & Louise Villette (peer to peer)
 séance : 3
 commit : a39a39eba36edfec9aac0c2add1892c26759c92e
 (révision et test par Maxime Morin & Louise Villette)
