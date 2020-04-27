@@ -17,8 +17,8 @@ séance 0 (lundi 30 mars) : choix du projet et constitution du groupe + attribut
 séance 1 (mardi 31 mars) : correction et test des exos 1 à 4 + explication de la partie 2 : stratégie d'IA.
 séance 2 (lundi 20 avril) : création d'une stratégie et découpage en petites tâches
 séance 3 (mardi 21 avril) : encodage de la stratégie en Java
-séance 4 (lundi 27 avril):
-séance 5 (mardi 28 avril):
+séance 4 (lundi 27 avril): création, test et amélioration strat46 + commencer présentation pour 6 mai
+séance 5 (mardi 28 avril): 
 
 Organisation générale du travail:
 - répartition par tâches (du code à écrire pour tout le monde)
@@ -27,5 +27,5 @@ Organisation générale du travail:
 - mettre toutes les petits bouts de codes ensemble pour créer la strat complète par Maxime et Louise
 - rédaction du README et project monitoring par Louise
 - test et révisions du code par tout le monde
-- jouer contre autre IA ou contre notre IA par Hugo et Maxime
+- jouer contre autre IA ou contre notre IA par Hugo et Maxime, puis Johanne en fin de projet
 
