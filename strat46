@@ -76,6 +76,18 @@ public class Strat46 implements Strategie{
         int src_prio_20= 0;
         int dest_prio_20 = 0;
         
+        // initialisation des scores
+        int score_0 = 0;
+        int score_1 = 0;
+        int score_2 = 0;
+        int score_3 = 0;
+        int score_4 = 0;
+        int score_5 = 0;
+        int score_6 = 0;
+        int score_7 = 0;
+        int score_8 = 0;
+        int score_9 = 0;
+        int score_10 = 0;
         
         int[] sourcesPossibles = Tools.getSource(_plateau);                     // tableau de toutes les sources possibles
         int nbSourcesPossibles = sourcesPossibles.length;                       // Nombre de sources possibles
@@ -93,51 +105,84 @@ public class Strat46 implements Strategie{
                     
                     if(Tools.getNbVoisinDispo(_plateau, voisin) == 1){          // SI la source ET le voisin n'ont qu'un seul voisin tous les 2 : il faut choisir où construire le village
                         
-                        
-                        if(SurBonus(_plateau, voisin)){                         //On fait le village sur un bonus si possible
-                            src_prio_0 = source;
-                            dest_prio_0 = voisin;
+                       
+                        if(SurBonus(_plateau, voisin) ){                         //On fait le village sur un bonus si possible
+                            int t[] = {voisin};
+                            if(Tools.evaluerGain(_plateau, source, voisin, t)[_myColor] >= score_0){
+                                src_prio_0 = source;
+                                dest_prio_0 = voisin;
+                                score_0 = Tools.evaluerGain(_plateau, src_prio_0, dest_prio_0, t)[_myColor];
+                            }
                         }
                         
                         else if(SurBonus(_plateau, source) && _plateau[voisin].getNbCabane() < 7){  //Idem
-                            src_prio_1 = voisin;
-                            dest_prio_1 = source;
+                            int t[] = {source};
+                             if( Tools.evaluerGain(_plateau, voisin, source, t)[_myColor] >= score_1){
+                                src_prio_1 = voisin;
+                                dest_prio_1 = source;
+                                score_1 = Tools.evaluerGain(_plateau, src_prio_1, dest_prio_1, t)[_myColor];
+                             }
                         }
                         
                         if(!SurMalus(_plateau, source) && _plateau[voisin].getNbCabane() < 7){  //On évite de faire un village sur un malus
-                            src_prio_2 = voisin;
-                            dest_prio_2 = source;
+                            int t[] = {source};
+                            if(Tools.evaluerGain(_plateau, voisin, source, t)[_myColor] >= score_2){
+                                src_prio_2 = voisin;
+                                dest_prio_2 = source;
+                                score_2 = Tools.evaluerGain(_plateau, src_prio_2, dest_prio_2, t)[_myColor];
+                            }
                         }
                         
-                        else if(SurMalus(_plateau, voisin) && _plateau[voisin].getNbCabane() < 7){  //Idem
-                            src_prio_3 = voisin;
-                            dest_prio_3 = source;
+                        else if(SurMalus(_plateau, voisin) && _plateau[voisin].getNbCabane() < 7  ){  //Idem
+                            int t[] = {source};
+                            if(Tools.evaluerGain(_plateau, voisin, source, t)[_myColor] >= score_3){
+                                src_prio_3 = voisin;
+                                dest_prio_3 = source;
+                                score_3 = Tools.evaluerGain(_plateau, src_prio_3, dest_prio_3, t)[_myColor];
+                            }
                         }
                         
                         
                         else {                                                  //On créé le village quand même (si aucun des cas ci-dessus) pour gagner des points 
-                            src_prio_6 = source;
-                            dest_prio_6 = voisin;
+                            int t[] = {voisin};
+                            if(Tools.evaluerGain(_plateau, source, voisin, t)[_myColor] >= score_4){
+                                src_prio_6 = source;
+                                dest_prio_6 = voisin;
+                                score_4 = Tools.evaluerGain(_plateau, src_prio_6, dest_prio_6, t)[_myColor];
+                            }
                         }
                     }
                      //La source à un voisin, le voisin plus d'un voisin
                     else if(SurMalus(_plateau,source) && _plateau[source].getCabanes(_myColor)+_plateau[voisin].getCabanes(_myColor) > 1 ){ 
+                        
                         //Je peux faire un village avec mes cabanes mais il est sur un malus-> On ne le créé pas
-                        src_prio_7= source;
-                        dest_prio_7 = voisin;
+                        int t[] = {voisin};
+                        if(Tools.evaluerGain(_plateau, source, voisin, t)[_myColor] >= score_5){
+                            src_prio_7= source;
+                            dest_prio_7 = voisin;
+                            score_5 = Tools.evaluerGain(_plateau, src_prio_7, dest_prio_7, t)[_myColor];
+                        }
   
                     }
                     
                     else if(_plateau[voisin].getCabanes(_myColor) == 0  && _plateau[source].getCabanes(_myColor) >=2 && _plateau[voisin].getNbCabane() < 7){
                         //Aucune cabane de ma couleur sur la source mais au moins 2 sur son seul voisin -> je créé le village
-                        dest_prio_8 = source;
-                        src_prio_8 = voisin;
+                        int t[] = {voisin};
+                        if(Tools.evaluerGain(_plateau, voisin, source, t)[_myColor] >= score_6){
+                            dest_prio_8 = source;
+                            src_prio_8 = voisin;
+                            score_6 = Tools.evaluerGain(_plateau, src_prio_8, dest_prio_8, t)[_myColor];
+                        }
                     }
                     
                     else if(_plateau[source].getCabanes(_myColor) >= 2 && _plateau[voisin].getNbCabane() < 7){
                         //Au moins 2 cabanes de ma couleur sur la source, je ramène le voisin quelqu'il soit
-                        src_prio_9 = voisin;
-                        dest_prio_9 = source;
+                        int t[] = {source};
+                        if(Tools.evaluerGain(_plateau, voisin, source, t)[_myColor] >= score_7){
+                            src_prio_9 = voisin;
+                            dest_prio_9 = source;
+                            score_7 = Tools.evaluerGain(_plateau, src_prio_9, dest_prio_9, t)[_myColor];
+                        }
                     }
                     
                     
@@ -145,8 +190,13 @@ public class Strat46 implements Strategie{
                     
                     else if( _plateau[voisin].getCabanes(_myColor) == 1 && _plateau[voisin].getNbCabane() < 7 && _plateau[source].getCabanes(_myColor) ==0 && _plateau[source].getNbCabane() <= 3){
                         // Une seule cabane de ma couleur sur la source et aucune sur le voisin: je compte le nombre de cabane pou' m'assurer de gagner des points
-                        dest_prio_10 = source;
-                        src_prio_10 = voisin;
+                        int t[] = {source};
+                        if(Tools.evaluerGain(_plateau, voisin, source, t)[_myColor] >= score_8){
+                        
+                            dest_prio_10 = source;
+                            src_prio_10 = voisin;
+                            score_8 = Tools.evaluerGain(_plateau, src_prio_10, dest_prio_10, t)[_myColor];
+                        }
                     }
                     
                     else if(_plateau[voisin].getCabanes(_myColor) == 0 && _plateau[voisin].getNbCabane() < 7 && Tools.getNbVoisinDispo(_plateau, voisin) > 1 && _plateau[source].getNbCabane() == 1){
@@ -154,8 +204,12 @@ public class Strat46 implements Strategie{
                         source = voisin;
                         int n = Tools.getVoisinsDispo(_plateau, source)[rand.nextInt(nbVoisins)];
                         if(n != source){
-                            dest_prio_11 = n;
-                            src_prio_11 = voisin;
+                            int t[] = {n};
+                            if(Tools.evaluerGain(_plateau, voisin, n, t)[_myColor] >= score_9){
+                                dest_prio_11 = n;
+                                src_prio_11 = voisin;
+                                score_9 = Tools.evaluerGain(_plateau, src_prio_11, dest_prio_11, t)[_myColor];
+                             }
                             
                         }
                     }
@@ -163,8 +217,12 @@ public class Strat46 implements Strategie{
                     else{
                         if(_plateau[voisin].getNbCabane() < 7){
                             //enfin je créé le village (au cas où aucun des cas précédent n'est rempli)
-                            src_prio_12 = voisin;
-                            dest_prio_12 = source;
+                            int t[] = {source};
+                            if(Tools.evaluerGain(_plateau, voisin, source, t)[_myColor] >= score_10){
+                                src_prio_12 = voisin;
+                                dest_prio_12 = source;
+                                score_10 = Tools.evaluerGain(_plateau, src_prio_12, dest_prio_12, t)[_myColor];
+                            }
                             
                         }
                     }
