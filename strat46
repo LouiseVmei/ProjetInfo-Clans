@@ -216,6 +216,47 @@ public class Strat46 implements Strategie{
                 }
             }
             
+            
+            else if(nbVoisins == 2){                                            //Puis une source ayant 2 voisins
+                
+                
+                if(PlusDeTroisVoisins(_plateau, source, nbVoisins,4 ) ){        //Une source dont tous les voisins ont au moins 4 voisins
+                    src_prio_16 = source;
+                    int n = Tools.getVoisinsDispo(_plateau, src_prio_16)[rand.nextInt(nbVoisins)];
+                    while(_plateau[n].getNbCabane() >= 7){
+                        n = Tools.getVoisinsDispo(_plateau, src_prio_16)[rand.nextInt(nbVoisins)];
+                    }
+                    dest_prio_16 = n;
+                }
+                
+                else if(PlusDeTroisVoisins(_plateau, source, nbVoisins, 3) ){   //Une source dont tous les voisins ont au moins 3 voisins
+                    src_prio_17 = source;
+                    int n = Tools.getVoisinsDispo(_plateau, src_prio_17)[rand.nextInt(nbVoisins)];
+                    while(_plateau[n].getNbCabane() >= 7){
+                        n = Tools.getVoisinsDispo(_plateau, src_prio_17)[rand.nextInt(nbVoisins)];
+                    }
+                    dest_prio_17 = n;
+                    src_prio_17 = source;
+                }
+                
+                else if(PlusDeTroisVoisins(_plateau, source, nbVoisins, 2) ){   //Une source dont tous les voisins ont au moins 2 voisins
+                    src_prio_18 = source;
+                    int n = Tools.getVoisinsDispo(_plateau, src_prio_18)[rand.nextInt(nbVoisins)];
+                    while(_plateau[n].getNbCabane() >= 7){
+                        n = Tools.getVoisinsDispo(_plateau, src_prio_18)[rand.nextInt(nbVoisins)];
+                        
+                    }
+                    dest_prio_18 = n;
+                    src_prio_18 = source;
+                    
+                }
+                
+                
+            }
+            
+            
+            
+            
             if(_plateau[source].getCabanes(_myColor) == 0 ){                    
             //Une case ne contenant aucune cabane de ma couleur -> voir parmis les voisins si je peux y mettre une cabane de ma couleur
                 for( int p = 0; p< nbVoisins; p++){
@@ -341,6 +382,24 @@ public class Strat46 implements Strategie{
             res[0] = src_prio_13;
             res[1] = dest_prio_13;
             //System.out.println("Coup 13");
+            return res;
+        }
+        if(dest_prio_16 != 0 && src_prio_16 !=  0){
+            res[0] = src_prio_16;
+            res[1] = dest_prio_16;
+            //System.out.println("Coup 16");
+            return res;
+        }
+        if(dest_prio_17 != 0 && src_prio_17 !=  0){
+            res[0] = src_prio_17;
+            res[1] = dest_prio_17;
+            //System.out.println("Coup 17");
+            return res;
+        }
+        if(dest_prio_18 != 0 && src_prio_18 !=  0){
+            res[0] = src_prio_18;
+            res[1] = dest_prio_18;
+            //System.out.println("Coup 18");
             return res;
         }
         if(dest_prio_19 != 0 && src_prio_19 !=  0){
