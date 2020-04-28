@@ -88,6 +88,9 @@ public class Strat46 implements Strategie{
         int score_8 = 0;
         int score_9 = 0;
         int score_10 = 0;
+        //int score_adversaire = 0;       //Pour comparer
+        //int score_adversaires_1 = 0;    //Source -> dest
+        //int score_adversaires_2 = 0;    //Dest -> source
         
         int[] sourcesPossibles = Tools.getSource(_plateau);                     // tableau de toutes les sources possibles
         int nbSourcesPossibles = sourcesPossibles.length;                       // Nombre de sources possibles
@@ -100,10 +103,49 @@ public class Strat46 implements Strategie{
             if(nbVoisins == 1 ){                                                //Un terrain à un seul voisin -> village à créer (décomposition de tous les cas possibles ci dessous)
                 
                 int voisin = Tools.getVoisinsDispo(_plateau, source)[0];        //Le seul voisin dispo
-               
+                
                 if(source != voisin){                                           // On s'assure de la différence entre la case de la source et celle du voisin (pour éviter de faire planter au cas où)
                     
                     if(Tools.getNbVoisinDispo(_plateau, voisin) == 1){          // SI la source ET le voisin n'ont qu'un seul voisin tous les 2 : il faut choisir où construire le village
+                        
+                        /*
+                        int t[] = {source};
+                        int q [] = {voisin};
+                        
+                        if(Tools.evaluerGain(_plateau, source, voisin, t)[_myColor] >= score_0){
+                                src_prio_0 = source;
+                                dest_prio_0 = voisin;
+                                score_0 = Tools.evaluerGain(_plateau, src_prio_0, dest_prio_0, t)[_myColor];
+                        }
+                        
+                        else if(Tools.evaluerGain(_plateau, voisin, source, q)[_myColor] >= score_0 && _plateau[voisin].getNbCabane() < 7){
+                            src_prio_0 = voisin;
+                            dest_prio_0 = source;
+                            score_0 = Tools.evaluerGain(_plateau, src_prio_0, dest_prio_0, t)[_myColor];
+                        }
+                        
+                        for(int p = 0; p<5; p++){
+                           if(p != _myColor){
+                               score_adversaires_1 += Tools.evaluerGain(_plateau, source, voisin, t)[p];
+                               score_adversaires_2 += Tools.evaluerGain(_plateau, voisin, source, q)[p];
+                            }
+                        }
+                        
+                        if(score_0 == 0){
+                            if(score_adversaires_1 <= score_adversaire){
+                                src_prio_1 = source;
+                                dest_prio_1 = voisin;
+                                score_adversaire = score_adversaires_1;
+                            }
+                            else if(score_adversaires_2 <= score_adversaire && _plateau[voisin].getNbCabane() < 7){
+                                src_prio_1 = voisin;
+                                dest_prio_1 = source;
+                                score_adversaire = score_adversaires_2;
+                            }
+                        }
+                        */
+                        
+                        
                         
                        
                         if(SurBonus(_plateau, voisin) ){                         //On fait le village sur un bonus si possible
@@ -151,6 +193,8 @@ public class Strat46 implements Strategie{
                                 score_4 = Tools.evaluerGain(_plateau, src_prio_6, dest_prio_6, t)[_myColor];
                             }
                         }
+                        
+                        
                     }
                      //La source à un voisin, le voisin plus d'un voisin
                     else if(SurMalus(_plateau,source) && _plateau[source].getCabanes(_myColor)+_plateau[voisin].getCabanes(_myColor) > 1 ){ 
@@ -228,8 +272,12 @@ public class Strat46 implements Strategie{
                     }
                     
                     
-                }              
+                }     
+                
+                
             }
+            
+            
             
             
             
@@ -275,42 +323,6 @@ public class Strat46 implements Strategie{
             }
             
             
-            else if(nbVoisins == 2){                                            //Puis une source ayant 2 voisins
-                
-                
-                if(PlusDeTroisVoisins(_plateau, source, nbVoisins,4 ) ){        //Une source dont tous les voisins ont au moins 4 voisins
-                    src_prio_16 = source;
-                    int n = Tools.getVoisinsDispo(_plateau, src_prio_16)[rand.nextInt(nbVoisins)];
-                    while(_plateau[n].getNbCabane() >= 7){
-                        n = Tools.getVoisinsDispo(_plateau, src_prio_16)[rand.nextInt(nbVoisins)];
-                    }
-                    dest_prio_16 = n;
-                }
-                
-                else if(PlusDeTroisVoisins(_plateau, source, nbVoisins, 3) ){   //Une source dont tous les voisins ont au moins 3 voisins
-                    src_prio_17 = source;
-                    int n = Tools.getVoisinsDispo(_plateau, src_prio_17)[rand.nextInt(nbVoisins)];
-                    while(_plateau[n].getNbCabane() >= 7){
-                        n = Tools.getVoisinsDispo(_plateau, src_prio_17)[rand.nextInt(nbVoisins)];
-                    }
-                    dest_prio_17 = n;
-                    src_prio_17 = source;
-                }
-                
-                else if(PlusDeTroisVoisins(_plateau, source, nbVoisins, 2) ){   //Une source dont tous les voisins ont au moins 2 voisins
-                    src_prio_18 = source;
-                    int n = Tools.getVoisinsDispo(_plateau, src_prio_18)[rand.nextInt(nbVoisins)];
-                    while(_plateau[n].getNbCabane() >= 7){
-                        n = Tools.getVoisinsDispo(_plateau, src_prio_18)[rand.nextInt(nbVoisins)];
-                        
-                    }
-                    dest_prio_18 = n;
-                    src_prio_18 = source;
-                    
-                }
-                
-                
-            }
             
             
             
@@ -345,7 +357,7 @@ public class Strat46 implements Strategie{
         
         //On met les return dans l'ordre de priorité des coups les plus intéressants au moins intéressants
         
-        if(dest_prio_0 != 0 && src_prio_0 !=  0){
+        if(dest_prio_0 != 0 && src_prio_0 !=  0 && score_0 != 0){
             res[0] = src_prio_0;
             res[1] = dest_prio_0;
             //System.out.println("Coup 0");
@@ -509,7 +521,7 @@ public class Strat46 implements Strategie{
      * NOM1 et NOM2 sont uniquement les noms de famille de votre binome
      */
     public String getName(){
-        return "MORIN_VILETTE_CALCOEN_PARIS";
+        return "VILLETTE_CALCOEN_PARIS_MORIN";
     }
 
     public String getGroupe(){
