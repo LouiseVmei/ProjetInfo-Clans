@@ -1,7 +1,8 @@
 package strats;
 import clans.Terrain;
 import java.util.Random;
-
+import java.util.ArrayList;
+import java.util.List;
 /**
  * Note (Anthony Fleury) : 
  * Cette strategie est a modifier et a adapter pour que vous puissiez rendre la votre.
@@ -19,63 +20,170 @@ import java.util.Random;
 public class Strat11 implements Strategie{
     Random rand;
     int Destination;
+    int[] res;
+    int Source;
+    int Destination_malusvoisin;
+    int Destination_bonusvoisin;
+    int Destination_almost_bonus;
     
     public Strat11 (){
         super();
         rand= new Random();
         Destination = 0;
+        res= new int[2];
+        Source = 0;
+        Destination_malusvoisin = 0;
+        Destination_bonusvoisin =  0;
+        Destination_almost_bonus = 0;
     }
 
     @Override
     public int[] mouvement(Terrain [] _plateau, int _myColor, int [] _colorScore, int _myScore, int _opponentScore, int [] _opponentMov, int [] _opponentVillages){
-        int[] res= new int[2];
         int nbChoix= Tools.getNbSourceValide(_plateau);                             //on récupère le nb de source valide
-        int src= Tools.getSource(_plateau)[rand.nextInt(nbChoix)];               //on en tire une aléatoirement      
-        int nbVoisin= Tools.getNbVoisinDispo(_plateau, src);                       //on récupère le nb de voisins de la source
-        int dest= Tools.getVoisinsDispo(_plateau, src)[rand.nextInt(nbVoisin)];    //on en tire un aléatoirement
+        int src = 0;    
+        int dest =0;
         boolean scoreMax = scoreMax(_myColor, _colorScore);
         int[] sourcesPossibles = Tools.getSource(_plateau);
-        boolean bonusPossible;
-        
-        if(scoreMax){
-            for(int k =  0; k<nbChoix; k++){
-                bonusPossible = BonusPossible(sourcesPossibles[k],_plateau,_myColor);
-                if(!bonusPossible ){
-                    src= Tools.getSource(_plateau)[rand.nextInt(nbChoix)];               //on en tire une aléatoirement      
-                    nbVoisin= Tools.getNbVoisinDispo(_plateau, src);                       //on récupère le nb de voisins de la source
-                    dest= Tools.getVoisinsDispo(_plateau, src)[rand.nextInt(nbVoisin)];    //on en tire un aléatoirement
-                    }
+        int src_prio_0 = 0;
+        int dest_prio_0 = 0;
+        int src_prio_1= 0;
+        int dest_prio_1 = 0;
+        int src_prio_3= 0;
+        int dest_prio_3 = 0;
+        int src_prio_4= 0;
+        int dest_prio_4 = 0;
+        int src_prio_5= 0;
+        int dest_prio_5 = 0;
+        int src_prio_6= 0;
+        int dest_prio_6 = 0;
+
+        if(scoreMax){           // Score max-> on empêche l'adversaire de marquer des points
+            for(int k = 0; k< sourcesPossibles.length; k++){
+                int source = sourcesPossibles[k];
+                
+            if(_plateau[source].getCabanes(_myColor) <= 1){
+                
+                if(MalusVoisin(source, _plateau, _myColor)){
+                    src_prio_0 = source;
+                    src_prio_0 = Destination_malusvoisin;
+                }
+                
                 else{
+                    int voisin = Tools.getVoisinsDispo(_plateau, source)[0];
+                    if(_plateau[source].getNbVoisins() == 1 && 2 <= _plateau[voisin].getNbVoisins()){
+                        source = voisin;
+                        int nbVoisins = Tools.getNbVoisinDispo(_plateau, voisin);
+                        int n = Tools.getVoisinsDispo(_plateau, src_prio_1)[rand.nextInt(nbVoisins)];
+                        while(_plateau[n].getNbCabane() >= 7){
+                            n = Tools.getVoisinsDispo(_plateau, src_prio_1)[rand.nextInt(nbVoisins)];
+                        }
+                        src_prio_1 = voisin;
+                        dest_prio_1 = n;
+                    }
                     
-                    src = sourcesPossibles[k];
-                    dest= Destination;   
+                    
+                    
                 }
             }
+
+            }
+            
         }
         
+        
+        else{       //Score pas max-> marquer des points
+            
+            for(int k = 0; k< sourcesPossibles.length; k++){
+                int source = sourcesPossibles[k];
+            
+                if(BonusPossible(source,_plateau,_myColor )){
+                    src_prio_3 = source;
+                    dest_prio_3 = Destination_bonusvoisin;
+                }
+                
+                else{
+                    if(AlmostVoisin(source, _plateau, _myColor)){
+                        src_prio_4 = source;
+                        dest_prio_4 = Destination_almost_bonus;
+                    }
+                    else{
+                        if(_plateau[source].getCabanes(_myColor) <= 1){
+                            
+                            if(MalusVoisin(source,_plateau, _myColor)){
+                                src_prio_5 = source;
+                                int nbVoisins = Tools.getNbVoisinDispo(_plateau, source);
+                                int n = Tools.getVoisinsDispo(_plateau, src_prio_5)[rand.nextInt(nbVoisins)];
+                                while(_plateau[n].getNbCabane() >= 7 && n == Destination_malusvoisin){  //On évite les malus
+                                     n = Tools.getVoisinsDispo(_plateau, src_prio_5)[rand.nextInt(nbVoisins)];
+                                }
+                                src_prio_5 = source;
+                                dest_prio_5 = n;
+                            }
+                            
+                            else{
+                                src_prio_6 = source;
+                                int nbVoisins = Tools.getNbVoisinDispo(_plateau, source);
+                                int n = Tools.getVoisinsDispo(_plateau, src_prio_6)[rand.nextInt(nbVoisins)];
+                                while(_plateau[n].getNbCabane() >= 7 ){  //On évite les malus
+                                     n = Tools.getVoisinsDispo(_plateau, src_prio_6)[rand.nextInt(nbVoisins)];
+                                }
+                                dest_prio_6 = n;
+                                
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+        if(dest_prio_0 != 0 && src_prio_0 !=  0){
+            res[0] = src_prio_0;
+            res[1] = dest_prio_0;
+            return res;
+        }
+        if(dest_prio_1 != 0 && src_prio_1 !=  0){
+            res[0] = src_prio_1;
+            res[1] = dest_prio_1;
+            //System.out.println("Coup 1");
+            return res;
+        }
+        if(dest_prio_3 != 0 && src_prio_3 !=  0){
+            res[0] = src_prio_3;
+            res[1] = dest_prio_3;
+            //System.out.println("Coup 3");
+            return res;
+        }
+        if(dest_prio_4 != 0 && src_prio_4 !=  0){
+            res[0] = src_prio_4;
+            res[1] = dest_prio_4;
+            //System.out.println("Coup 4");
+            return res;
+        }
+        if(dest_prio_5 != 0 && src_prio_5 !=  0){
+            res[0] = src_prio_5;
+            res[1] = dest_prio_5;
+            //System.out.println("Coup 5");
+            return res;
+        }
+        if(dest_prio_6 != 0 && src_prio_6 !=  0){
+            res[0] = src_prio_6;
+            res[1] = dest_prio_6;
+            //System.out.println("Coup 6");
+            return res;
+        }
         else{
-            for(int k =  0; k<nbChoix; k++){
-                bonusPossible = BonusPossible(sourcesPossibles[k],_plateau,_myColor);
-                if(!bonusPossible ){
-                    src= Tools.getSource(_plateau)[rand.nextInt(nbChoix)];               //on en tire une aléatoirement      
-                    nbVoisin= Tools.getNbVoisinDispo(_plateau, src);                       //on récupère le nb de voisins de la source
-                    dest= Tools.getVoisinsDispo(_plateau, src)[rand.nextInt(nbVoisin)];    //on en tire un aléatoirement
-                    }
-                else{
-                    
-                    src = sourcesPossibles[k];
-                    dest= Destination;   
-                }
-            }
+            //SI vraiment aucunes de TOUTES ces possibilitées, on joue random (pour ne pas faire planter dans ce cas TRES rare)
+            src= Tools.getSource(_plateau)[rand.nextInt(nbChoix)];              
+            int nbVoisin= Tools.getNbVoisinDispo(_plateau, src);         
+            dest= Tools.getVoisinsDispo(_plateau, src)[rand.nextInt(nbVoisin)];
+            //System.out.println("random");
         }
-        
-        //on retourne notre selection
-        res[0]=src;
+             
+
+        res[0]= src;
         res[1]=dest;
         return res;
-    }
-
-    
+    }  
 
     @Override
     public int[] ordre( int[] _villages ){   
@@ -98,7 +206,7 @@ public class Strat11 implements Strategie{
      * NOM1 et NOM2 sont uniquement les noms de famille de votre binome
      */
     public String getName(){
-        return "PARIS CALCOEN VILLETTE MORIN";
+        return "PARIS_CALCOEN_VILLETTE_MORIN";
     }
 
     public String getGroupe(){
@@ -108,7 +216,6 @@ public class Strat11 implements Strategie{
     public boolean BonusPossible(int sourcesPossibles, Terrain [] _plateau, int myColor){
         int nb_villages = Tools.countVillage(_plateau); //nombre de villages sur le plateau
         int ere_actuelle = Tools.age(nb_villages);  //age actuel
-                            
             for(int j = 0; j<= 4;j++ ){     //numéro des couleurs
                 if(_plateau[sourcesPossibles].getCabanes(j) == myColor){     //Cases qui contiennent mas couleur
                     int nb_voisins = _plateau[sourcesPossibles].getNbVoisins();  //Nombre de voisins de cette case
@@ -119,19 +226,19 @@ public class Strat11 implements Strategie{
                         if(voisinEstDispo){
                             String s = _plateau[voisin].getType();
                             if(s.equals("foret") && ere_actuelle <= 4 ){
-                                Destination = voisin;
+                                Destination_bonusvoisin = voisin;
                                 return true  ;
                             }
                             else if(s.equals("montagne") && ere_actuelle <= 7 && ere_actuelle >=5 ){
-                                Destination = voisin;
+                                Destination_bonusvoisin = voisin;
                                 return true  ;
                             }
                             else if(s.equals("champ") && ere_actuelle <= 9 && ere_actuelle >=8){
-                                Destination = voisin;
+                                Destination_bonusvoisin = voisin;
                                 return true  ;
                             }
                             else if(s.equals("plaine") && ere_actuelle <= 11 && ere_actuelle >=10){
-                                Destination = voisin;
+                                Destination_bonusvoisin = voisin;
                                 return true  ;
                             }
                         }
@@ -147,7 +254,7 @@ public class Strat11 implements Strategie{
         int ere_actuelle = Tools.age(nb_villages);  //age actuel
                             
             for(int j = 0; j<= 4;j++ ){     //numéro des couleurs
-                if(_plateau[sourcesPossibles].getCabanes(j) == myColor){     //Cases qui contiennent mas couleur
+                if(_plateau[sourcesPossibles].getCabanes(j) != myColor){     //Cases qui ne contiennent pas ma couleur
                     int nb_voisins = _plateau[sourcesPossibles].getNbVoisins();  //Nombre de voisins de cette case
                     String nature_case = _plateau[sourcesPossibles].getType(); // "foret", "montagne",...
                     for(int k = 0; k< nb_voisins; k++){
@@ -156,19 +263,19 @@ public class Strat11 implements Strategie{
                         if(voisinEstDispo){
                             String s = _plateau[voisin].getType();
                             if(s.equals("montagne") && ere_actuelle <= 4 ){
-                                Destination = voisin;
+                                Destination_malusvoisin = voisin;
                                 return true  ;
                             }
                             else if(s.equals("plaine") && ere_actuelle <= 7 && ere_actuelle >=5 ){
-                                Destination = voisin;
+                                Destination_malusvoisin = voisin;
                                 return true  ;
                             }
                             else if(s.equals("foret") && ere_actuelle <= 9 && ere_actuelle >=8){
-                                Destination = voisin;
+                                Destination_malusvoisin = voisin;
                                 return true  ;
                             }
                             else if(s.equals("champ") && ere_actuelle <= 11 && ere_actuelle >=10){
-                                Destination = voisin;
+                                Destination_malusvoisin = voisin;
                                 return true  ;
                             }
                         }
@@ -192,31 +299,59 @@ public class Strat11 implements Strategie{
     }
     
     public boolean scoreMax(int _myColor, int[] colorScore){
+        
         for (int i=0; i<colorScore.length; i++){
-            if (colorScore[_myColor]<colorScore[i]){
+            if (colorScore[_myColor] <= colorScore[i]){
                 return false;
             }
+          
         }
-        return false;
+        return true;
     }
     
-       public boolean AlmostVoisin(int i, Terrain[] _plateau, int _myColor){
-    boolean PresqueVoisin = false;
-    for (int k=0; k<(Tools.getVoisinsDispo(_plateau,i).length); k++){
-        if (BonusPossible(Tools.getVoisinsDispo(_plateau,i)[k],_plateau,_myColor)){
-            PresqueVoisin = true;
-        }
-    }
-    return (PresqueVoisin);
-    }
+   
     
-    public boolean AlmostAlone(int i, Terrain[] _plateau){
-        boolean VoisinPresqueSeul=false;
+   public boolean AlmostVoisin(int i, Terrain[] _plateau, int myColor){
+        boolean PresqueVoisin = false;
         for (int k=0; k<(Tools.getVoisinsDispo(_plateau,i).length); k++){
-           if (Tools.getNbVoisinDispo(_plateau,Tools.getVoisinsDispo(_plateau,i)[k])==1){
+            if (BonusPossible(Tools.getVoisinsDispo(_plateau,i)[k], _plateau, myColor)){
+                Destination_almost_bonus = i;
+                PresqueVoisin = true;
+            }
+        }
+        return (PresqueVoisin);
+    }
+    
+    public boolean AlmostAlone(int i, Terrain[] plateau){
+        boolean VoisinPresqueSeul=false;
+        for (int k=0; k<(Tools.getVoisinsDispo(plateau,i).length); k++){
+           if (Tools.getNbVoisinDispo(plateau,Tools.getVoisinsDispo(plateau,i)[k])>=1){
                 VoisinPresqueSeul=true;
             }
         }
         return (VoisinPresqueSeul);
+    } 
+    
+    public boolean estVoisinDe(int source, int dest, Terrain[] plateau) {
+        int []t = Tools.getVoisinsDispo(plateau,source);
+        for (int k=0; k<(t.length); k++){
+           if (t[k] == dest){
+               return true;
+           }
+        }
+        return (false);
     }
+    
+    public boolean AlmostVoisinDeMalus(int i, Terrain[] _plateau, int myColor){
+        boolean PresqueVoisin = false;
+        for (int k=0; k<(Tools.getVoisinsDispo(_plateau,i).length); k++){
+            if (MalusVoisin(Tools.getVoisinsDispo(_plateau,i)[k], _plateau, myColor)){
+                Destination = i;
+                PresqueVoisin = true;
+            }
+        }
+        return (PresqueVoisin);
+    }
+    
 }
+
