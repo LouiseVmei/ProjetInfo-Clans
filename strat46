@@ -239,8 +239,10 @@ public class Strat46 implements Strategie{
                 if(PlusDeTroisVoisins(_plateau, source, nbVoisins,4 ) ){        //Une source dont tous les voisins ont au moins 4 voisins
                     src_prio_12 = source;
                     int n = Tools.getVoisinsDispo(_plateau, src_prio_12)[rand.nextInt(nbVoisins)];
-                    while(_plateau[n].getNbCabane() >= 7){
+                    int MaxIter = 0;
+                    while(_plateau[n].getNbCabane() >= 7 && MaxIter <= 15){
                         n = Tools.getVoisinsDispo(_plateau, src_prio_12)[rand.nextInt(nbVoisins)];
+                        MaxIter += 1;
                         
                         
                     }
@@ -250,8 +252,10 @@ public class Strat46 implements Strategie{
                 else if(PlusDeTroisVoisins(_plateau, source, nbVoisins, 3) ){   //Une source dont tous les voisins ont au moins 3 voisins
                     src_prio_13 = source;
                     int n = Tools.getVoisinsDispo(_plateau, src_prio_13)[rand.nextInt(nbVoisins)];
-                    while(_plateau[n].getNbCabane() >= 7){
+                    int MaxIter = 0;
+                    while(_plateau[n].getNbCabane() >= 7 && MaxIter <= 15){
                         n = Tools.getVoisinsDispo(_plateau, src_prio_13)[rand.nextInt(nbVoisins)];
+                        MaxIter += 1;
                     }
                     dest_prio_13 = n;
                     src_prio_13 = source;
@@ -260,8 +264,10 @@ public class Strat46 implements Strategie{
                 else if(PlusDeTroisVoisins(_plateau, source, nbVoisins, 2) ){   //Une source dont tous les voisins ont au moins 2 voisins
                     src_prio_14 = source;
                     int n = Tools.getVoisinsDispo(_plateau, src_prio_14)[rand.nextInt(nbVoisins)];
-                    while(_plateau[n].getNbCabane() >= 7){
+                    int MaxIter = 0;
+                    while(_plateau[n].getNbCabane() >= 7 && MaxIter <= 15){
                         n = Tools.getVoisinsDispo(_plateau, src_prio_14)[rand.nextInt(nbVoisins)];
+                        MaxIter += 1;
                         
                     }
                     dest_prio_14= n;
