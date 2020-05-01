@@ -43,3 +43,14 @@ séance 5 (mardi 28 avril): mise en commun de toutes les données recueillies + 
 - test et révisions du code par tout le monde
 - jouer contre autre IA ou contre notre IA par Hugo et Maxime, puis Johanne en fin de projet
 
+**Indications pour utiliser notre IA:**
+
+
+- Pour faire un combat simple entre 2 stratégies : aller dans le main de 'TournoisClans' et lancer 'combatSimple(stratégieA,stratégieB'). Pour simuler N parties il faut lancer 'combatMultiples(stratégieA,stratégieB,N)'.
+
+
+- Pour simuler un tournoi : on utilise le tableau' int strategies[] = {0,1,2,3,4,5,6,7,8,9,46}', et on lance 'lanceTournoi(strategies,N)'.
+
+
+- Pour jouer contre notre IA : on lance 'testStrat(46)'
+
