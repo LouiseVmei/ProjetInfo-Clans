@@ -18,7 +18,7 @@ séance 1 (mardi 31 mars) : correction et test des exos 1 à 4 + explication de 
 séance 2 (lundi 20 avril) : création d'une stratégie et découpage en petites tâches
 séance 3 (mardi 21 avril) : encodage de la stratégie en Java
 séance 4 (lundi 27 avril): création, test et amélioration strat46 + commencer présentation pour 6 mai
-séance 5 (mardi 28 avril): 
+séance 5 (mardi 28 avril): mise en commun de toutes les données recueillies + commencer préparation pour présentation orale + finir améliorations et rdaction du code & annexes
 
 Organisation générale du travail:
 - répartition par tâches (du code à écrire pour tout le monde)
