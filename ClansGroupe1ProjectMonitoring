@@ -111,3 +111,13 @@ Organisation du travail pour la dernière séance:
 -jouer contre strat11/strat48 et la faire jouer contre les autres strat (Johanne)
 -amélioration de la strat par la modification de certaines méthodes, voir l'ajout d'autres (Maxime & Hugo)
 - readme & project monitoring (Louise)
+
+Améliorations strat11:
+Responsable : Maxime Morin
+Code review : Louise Villette
+commit: 0521c102692beff6b89467daac3af188606938e5
+
+Améliorations strat46 :
+Responsable : Maxime Morin
+Code review : Louise Villette
+commit : d596157ad27011278e266378eaa34e91a54aaee3
