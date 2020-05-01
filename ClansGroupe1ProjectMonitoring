@@ -97,6 +97,7 @@ commit : a39a39eba36edfec9aac0c2add1892c26759c92e
 
 brique fonctionnelle: meilleurVillage()
 responsable : Johanne Calcoen
+Abandon de ce code
 
 implémentation strat46: Maxime Morin
 révision : Louise & Hugo
@@ -104,8 +105,9 @@ test : Johanne
 amélioration : Maxime & Hugo (peer to peer)
 commit : 9ad259599e6b546689bf37e84c465c4053893918
 
-Organisation du travail pour les séances à venir:
+Organisation du travail pour la dernière séance:
 -test (Johanne & Maxime)
 -debug (Louise)
 -jouer contre strat11/strat48 et la faire jouer contre les autres strat (Johanne)
 -amélioration de la strat par la modification de certaines méthodes, voir l'ajout d'autres (Maxime & Hugo)
+- readme & project monitoring (Louise)
