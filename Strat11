@@ -71,14 +71,16 @@ public class Strat11 implements Strategie{
                 else{
                     int voisin = Tools.getVoisinsDispo(_plateau, source)[0];
                     if(_plateau[source].getNbVoisins() == 1 && 2 <= _plateau[voisin].getNbVoisins()){
-                        source = voisin;
                         int nbVoisins = Tools.getNbVoisinDispo(_plateau, voisin);
-                        int n = Tools.getVoisinsDispo(_plateau, src_prio_1)[rand.nextInt(nbVoisins)];
-                        while(_plateau[n].getNbCabane() >= 7){
-                            n = Tools.getVoisinsDispo(_plateau, src_prio_1)[rand.nextInt(nbVoisins)];
+                        int n = Tools.getVoisinsDispo(_plateau, voisin)[rand.nextInt(nbVoisins)];
+                        int q = 0; //Max iter pour éviter de tourner à l'infini
+                        while(_plateau[n].getNbCabane() >= 7 && q <= 10){
+                            n = Tools.getVoisinsDispo(_plateau, voisin)[rand.nextInt(nbVoisins)];
+                            q+=1;
                         }
                         src_prio_1 = voisin;
                         dest_prio_1 = n;
+                        
                     }
                     
                     
@@ -110,25 +112,32 @@ public class Strat11 implements Strategie{
                         if(_plateau[source].getCabanes(_myColor) <= 1){
                             
                             if(MalusVoisin(source,_plateau, _myColor)){
-                                src_prio_5 = source;
                                 int nbVoisins = Tools.getNbVoisinDispo(_plateau, source);
-                                int n = Tools.getVoisinsDispo(_plateau, src_prio_5)[rand.nextInt(nbVoisins)];
-                                while(_plateau[n].getNbCabane() >= 7 && n == Destination_malusvoisin){  //On évite les malus
-                                     n = Tools.getVoisinsDispo(_plateau, src_prio_5)[rand.nextInt(nbVoisins)];
+                                int n = Tools.getVoisinsDispo(_plateau, source)[rand.nextInt(nbVoisins)];
+                                int q = 0; //Max iter
+                                while(_plateau[n].getNbCabane() >= 7 && n == Destination_malusvoisin && q <=10){  //On évite les malus
+                                     n = Tools.getVoisinsDispo(_plateau, source)[rand.nextInt(nbVoisins)];
+                                     q += 1;
                                 }
                                 src_prio_5 = source;
                                 dest_prio_5 = n;
                             }
                             
                             else{
-                                src_prio_6 = source;
                                 int nbVoisins = Tools.getNbVoisinDispo(_plateau, source);
-                                int n = Tools.getVoisinsDispo(_plateau, src_prio_6)[rand.nextInt(nbVoisins)];
-                                while(_plateau[n].getNbCabane() >= 7 ){  //On évite les malus
-                                     n = Tools.getVoisinsDispo(_plateau, src_prio_6)[rand.nextInt(nbVoisins)];
+                                if(nbVoisins > 0){
+                                    int n = Tools.getVoisinsDispo(_plateau, source)[rand.nextInt(nbVoisins)];
+
+
+                                    int q = 0;  //Max iter
+
+                                    while(_plateau[n].getNbCabane() >= 7 && q<=10){  //On évite les malus
+                                         n = Tools.getVoisinsDispo(_plateau, source)[rand.nextInt(nbVoisins)];
+                                         q += 1;
+                                    }
+                                    dest_prio_6 = n;
+                                    src_prio_6 = source;
                                 }
-                                dest_prio_6 = n;
-                                
                             }
                         }
                     }
@@ -139,6 +148,7 @@ public class Strat11 implements Strategie{
         if(dest_prio_0 != 0 && src_prio_0 !=  0){
             res[0] = src_prio_0;
             res[1] = dest_prio_0;
+            //System.out.println("Coup 0");
             return res;
         }
         if(dest_prio_1 != 0 && src_prio_1 !=  0){
@@ -172,7 +182,6 @@ public class Strat11 implements Strategie{
             return res;
         }
         else{
-            //SI vraiment aucunes de TOUTES ces possibilitées, on joue random (pour ne pas faire planter dans ce cas TRES rare)
             src= Tools.getSource(_plateau)[rand.nextInt(nbChoix)];              
             int nbVoisin= Tools.getNbVoisinDispo(_plateau, src);         
             dest= Tools.getVoisinsDispo(_plateau, src)[rand.nextInt(nbVoisin)];
@@ -206,7 +215,7 @@ public class Strat11 implements Strategie{
      * NOM1 et NOM2 sont uniquement les noms de famille de votre binome
      */
     public String getName(){
-        return "PARIS_CALCOEN_VILLETTE_MORIN";
+        return "PARIS CALCOEN VILLETTE MORIN";
     }
 
     public String getGroupe(){
@@ -315,7 +324,7 @@ public class Strat11 implements Strategie{
         boolean PresqueVoisin = false;
         for (int k=0; k<(Tools.getVoisinsDispo(_plateau,i).length); k++){
             if (BonusPossible(Tools.getVoisinsDispo(_plateau,i)[k], _plateau, myColor)){
-                Destination_almost_bonus = i;
+                Destination_almost_bonus = Tools.getVoisinsDispo(_plateau, i)[k];
                 PresqueVoisin = true;
             }
         }
@@ -354,4 +363,5 @@ public class Strat11 implements Strategie{
     }
     
 }
+
 
