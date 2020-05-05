@@ -246,8 +246,10 @@ public class Strat46 implements Strategie{
                         
                         
                     }
-                    dest_prio_12 = n;
                     
+                    if(_plateau[n].getNbCabane() < 7){
+                        dest_prio_12 = n;
+                    }
                 }
                 else if(PlusDeTroisVoisins(_plateau, source, nbVoisins, 3) ){   //Une source dont tous les voisins ont au moins 3 voisins
                     src_prio_13 = source;
@@ -257,8 +259,10 @@ public class Strat46 implements Strategie{
                         n = Tools.getVoisinsDispo(_plateau, src_prio_13)[rand.nextInt(nbVoisins)];
                         MaxIter += 1;
                     }
-                    dest_prio_13 = n;
-                    src_prio_13 = source;
+                    if(_plateau[n].getNbCabane() < 7){
+                        dest_prio_13 = n;
+                        
+                    }
                 }
                 
                 else if(PlusDeTroisVoisins(_plateau, source, nbVoisins, 2) ){   //Une source dont tous les voisins ont au moins 2 voisins
@@ -270,8 +274,9 @@ public class Strat46 implements Strategie{
                         MaxIter += 1;
                         
                     }
-                    dest_prio_14= n;
-                    src_prio_14 = source;
+                    if(_plateau[n].getNbCabane() < 7){
+                        dest_prio_14 = n;
+                    }
                     
                 }
             }
